@@ -117,7 +117,8 @@ class PLSA():
         for doc in self.collection:
             self.documents.append(doc)
         return len(self.documents)
-
+    
+#main function
 if __name__ == "__main__":
     filename = sys.argv[1]
     collection = open(filename, 'r').readlines()
