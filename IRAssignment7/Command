@@ -1,0 +1,43 @@
+2: RankBoost
+4: Coordinate Ascent
+6: LambdaMART
+8: Random Forests
+
+
+#Trainining 
+#time measures the required time
+
+time java -jar RankLib.jar -train Data/train.txt -test Data/test.txt -validate Data/valid.txt -ranker 2 -metric2t NDCG@10 -metric2T ERR@10 -save Models/RankBoostModel.txt
+
+time java -jar RankLib.jar -train Data/train.txt -test Data/test.txt -validate Data/valid.txt -ranker 4 -metric2t NDCG@10 -metric2T ERR@10 -save Models/CoordinateAscentModel.txt
+
+time java -jar RankLib.jar -train Data/train.txt -test Data/test.txt -validate Data/valid.txt -ranker 6 -metric2t NDCG@10 -metric2T ERR@10 -save Models/LambdaMARTModel.txt
+
+time java -jar RankLib.jar -train Data/train.txt -test Data/test.txt -validate Data/valid.txt -ranker 8 -metric2t NDCG@10 -metric2T ERR@10 -save Models/RandomForestsModel.txt
+
+
+#Evaluating previously trained models
+java -jar RankLib.jar -load Models/RankBoostModel.txt -test Data/test.txt -metric2T NDCG@10
+java -jar RankLib.jar -load Models/RankBoostModel.txt -test Data/test.txt -metric2T ERR@10
+
+java -jar RankLib.jar -load Models/CoordinateAscentModel.txt -test Data/test.txt -metric2T NDCG@10
+java -jar RankLib.jar -load Models/CoordinateAscentModel.txt -test Data/test.txt -metric2T ERR@10
+
+java -jar RankLib.jar -load Models/LambdaMARTModel.txt -test Data/test.txt -metric2T NDCG@10
+java -jar RankLib.jar -load Models/LambdaMARTModel.txt -test Data/test.txt -metric2T ERR@10
+
+java -jar RankLib.jar -load Models/RandomForestsModel.txt -test Data/test.txt -metric2T NDCG@10
+java -jar RankLib.jar -load Models/RandomForestsModel.txt -test Data/test.txt -metric2T ERR@10
+
+#Comparing models
+java -jar RankLib.jar -load Models/RankBoostModel.txt -test Data/test.txt -metric2T NDCG@10 -idv output/RankBoost.ndcg.txt
+java -jar RankLib.jar -load Models/RankBoostModel.txt -test Data/test.txt -metric2T ERR@10 -idv output/RankBoost.err.txt
+
+java -jar RankLib.jar -load Models/CoordinateAscentModel.txt -test Data/test.txt -metric2T NDCG@10 -idv output/CoordinateAscent.ndcg.txt
+java -jar RankLib.jar -load Models/CoordinateAscentModel.txt -test Data/test.txt -metric2T ERR@10 -idv output/CoordinateAscent.err.txt
+
+java -jar RankLib.jar -load Models/LambdaMARTModel.txt -test Data/test.txt -metric2T NDCG@10 -idv output/LambdaMART.ndcg.txt
+java -jar RankLib.jar -load Models/LambdaMARTModel.txt -test Data/test.txt -metric2T ERR@10 -idv output/LambdaMART.err.txt
+
+java -jar RankLib.jar -load Models/RandomForestsModel.txt -test Data/test.txt -metric2T NDCG@10 -idv output/RandomForest.ndcg.txt
+java -jar RankLib.jar -load Models/RandomForestsModel.txt -test Data/test.txt -metric2T ERR@10 -idv output/RandomForest.err.txt
